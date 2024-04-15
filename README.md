@@ -141,7 +141,7 @@ const Main = () => {
 export default Main;
 ```
 
-## class 대신 className을 사용
+## 1.7 class 대신 className을 사용
 
 ```js
 import React, { Fragment } from "react";
