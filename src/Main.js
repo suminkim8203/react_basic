@@ -1,55 +1,58 @@
 import React, { useState } from "react";
 
-const initState = {
-  username: "",
-  message: "",
-};
+const initState = [
+  { id: 1, username: "김수민" },
+  { id: 2, username: "배소연" },
+  { id: 3, username: "박수현" },
+  { id: 4, username: "이정민" },
+  { id: 5, username: "김가희" },
+  { id: 6, username: "이진경" },
+];
 
 const Main = () => {
-  const [memberInfo, setMemberInfo] = useState(initState);
+  // member 목록 상태
+  const [members, setMembers] = useState(initState);
+  // id 상태
+  const [nextId, setNextId] = useState(7);
+  // input 상태
+  const [username, setUsername] = useState("");
 
-  const { username, message } = memberInfo;
-
-  const onChange = event => {
-    const naxtMemberInfo = {
-      ...memberInfo, // 기존의 정보를 이 자리에 복사한 뒤
-      [event.target.name]: event.target.value, // 원하는 값을 덮어씌우기
-    };
-    setMemberInfo(naxtMemberInfo);
+  // input 이벤트 핸들러
+  const onChange = e => {
+    setUsername(e.target.value);
   };
 
   const onClick = () => {
-    alert(`${username}: ${message}`);
-    setMemberInfo(initState);
+    console.log("사용자 이름 추가!");
+
+    // 배열의 내장 함수 concat을 사용하여 새로운 항목을 추가한 배열로 만든다.
+    const nextMembers = members.concat({
+      id: nextId,
+      username: username,
+    });
+    setNextId(nextId + 1);
+    setMembers(nextMembers);
+    setUsername("");
   };
 
-  const onKeyPress = event => {
-    if (event.key === "Enter") {
-      onClick();
-    }
+  // remove 이벤트 핸들러
+  const onRemove = id => {
+    const nextMembers = members.filter(member => member.id !== id);
+    setMembers(nextMembers);
   };
 
   return (
     <div>
-      <h1>이벤트 연습</h1>
-      <input
-        type="text"
-        name="username"
-        placeholder="사용자명"
-        value={username}
-        onChange={onChange}
-      />
-      <br />
-      <input
-        type="text"
-        name="message"
-        placeholder="아무거나 입력해 보세요."
-        value={message}
-        onChange={onChange}
-        onKeyUp={onKeyPress}
-      />
-      <br />
-      <button onClick={onClick}>확인</button>
+      <input onChange={onChange} value={username} />
+      <button onClick={onClick}>사용자 추가</button>
+
+      <ul>
+        {members.map(member => (
+          <li key={member.id} onDoubleClick={() => onRemove(member.id)}>
+            {member.username}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
