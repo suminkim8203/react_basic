@@ -16,6 +16,9 @@ const Home = () => {
         <li>
           <Link to="/profiles/soyeon">소연의 프로필</Link>
         </li>
+        <li>
+          <Link to="/articles">게시글 목록</Link>
+        </li>
       </ul>
     </div>
   );
