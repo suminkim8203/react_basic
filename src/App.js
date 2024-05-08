@@ -1,13 +1,15 @@
-import CSSModule from "./components/CSSModule";
-import ScssComponents from "./components/ScssComponents";
-import StyledComponent from "./components/StyledComponent";
-import Axios from "./components/pages/Axios";
+import ColorBox from "./components/ColorBox";
+import SelectColors from "./components/SelectColors";
+import { ColorProvider } from "./contexts/colorContext";
 
 function App() {
   return (
-    <div>
-      <Axios />
-    </div>
+    <ColorProvider>
+      <div>
+        <SelectColors />
+        <ColorBox />
+      </div>
+    </ColorProvider>
   );
 }
 
